@@ -2,11 +2,21 @@ import time
 import pyupbit
 import datetime
 import json 
+
 with open('keys.json','r') as f:
     keys = json.load(f)
 
+kst_timezone = datetime.timezone(datetime.timedelta(hours=9), 'KST')
 access = keys['accessKey']         # 본인 값으로 변경
 secret = keys['secretKey']
+
+
+
+cryptoType = "KNC"
+cryptoRelation = "KRW-"+cryptoType
+kValue = 0.6
+
+
 
 def get_target_price(ticker, k):
     """변동성 돌파 전략으로 매수 목표가 조회"""
@@ -48,22 +58,23 @@ print("autotrade start")
 # 자동매매 시작
 while True:
     try:
-        now = datetime.datetime.now()
-        start_time = get_start_time("KRW-BTC")
+        now = datetime.datetime.now(kst_timezone)
+        
+        start_time = get_start_time(cryptoRelation)
         end_time = start_time + datetime.timedelta(days=1)
 
         if start_time < now < end_time - datetime.timedelta(seconds=10):
-            target_price = get_target_price("KRW-BTC", 0.8)
-            ma15 = get_ma15("KRW-BTC")
-            current_price = get_current_price("KRW-BTC")
+            target_price = get_target_price(cryptoRelation, 0.5)
+            ma15 = get_ma15(cryptoRelation)
+            current_price = get_current_price(cryptoRelation)
             if target_price < current_price and ma15 < current_price:
-                krw = get_balance("KRW")
+                krw = get_balance(cryptoType)
                 if krw > 5000:
-                    upbit.buy_market_order("KRW-BTC", krw*0.9995)
+                    upbit.buy_market_order(cryptoRelation, krw*0.9995)
         else:
-            btc = get_balance("BTC")
+            btc = get_balance(cryptoType)
             if btc > 0.00008:
-                upbit.sell_market_order("KRW-BTC", btc*0.9995)
+                upbit.sell_market_order(cryptoRelation, btc)
         time.sleep(1)
     except Exception as e:
         print(e)
