@@ -12,7 +12,7 @@ secret = keys['secretKey']
 
 
 
-cryptoType = "KNC"
+cryptoType = "WAVES"
 cryptoRelation = "KRW-"+cryptoType
 kValue = 0.5
 
