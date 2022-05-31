@@ -14,7 +14,7 @@ secret = keys['secretKey']
 
 cryptoType = "KNC"
 cryptoRelation = "KRW-"+cryptoType
-kValue = 0.6
+kValue = 0.5
 
 
 
