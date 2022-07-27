@@ -72,12 +72,12 @@ while True:
                 krw = get_balance("KRW")
                 if krw > 5000:
                     print(krw)
-                    #upbit.buy_market_order(cryptoRelation, krw*0.9995)
+                    upbit.buy_market_order(cryptoRelation, krw*0.9995)
         else:
             cryptoBalance = get_balance(cryptoType)
             if cryptoBalance > (5000/get_current_price(cryptoRelation)):
                 print(krw)
-                #upbit.sell_market_order(cryptoRelation, cryptoBalance)
+                upbit.sell_market_order(cryptoRelation, cryptoBalance)
         time.sleep(1)
     except Exception as e:
         print(e)
