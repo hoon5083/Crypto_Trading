@@ -57,7 +57,7 @@ print("autotrade start")
 # 자동매매 시작
 while True:
     try:
-        now = datetime.datetime.now(kst_timezone)
+        now = datetime.datetime.now()
         
         start_time = get_start_time(cryptoRelation)
         end_time = start_time + datetime.timedelta(days=1)
